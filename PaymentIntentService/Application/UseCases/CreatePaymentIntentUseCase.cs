@@ -1,20 +1,24 @@
-﻿using System.Text.Json;
-using PaymentIntentService.Application.Interfaces;
+﻿using PaymentIntentService.Application.Interfaces.Queue;
 using PaymentIntentService.Domain.Entities;
 
-namespace PaymentIntentService.Application.UseCases
+namespace PaymentIntentService.Application.UseCases;
+
+public class CreatePaymentIntentUseCase(IPaymentIntentQueueProducer queueProducer)
 {
-    public class CreatePaymentIntentUseCase(IMessageQueueService messageQueueService)
+    public async Task<PaymentIntent> ExecuteAsync(string payerDocument, decimal amount, string description,
+        string paymentMethod)
     {
-        private readonly IMessageQueueService _messageQueueService = messageQueueService;
-
-        public async Task<PaymentIntent> ExecuteAsync(decimal amount)
+        try
         {
-            var paymentIntent = new PaymentIntent(amount);
+            var paymentIntent = new PaymentIntent(payerDocument, amount, description, paymentMethod);
 
-            await _messageQueueService.SendMessageAsync(JsonSerializer.Serialize(paymentIntent));
+            await queueProducer.SendMessageAsync(paymentIntent);
 
             return paymentIntent;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("Error while creating the PaymentIntent.", ex);
         }
     }
 }

@@ -4,20 +4,22 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>0de4f394-957b-4619-87a9-7c0bf27cf9c2</UserSecretsId>
+        <UserSecretsId>daecdc9a-9b07-4cf2-9f11-cff5a1a646b8</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301"/>
         <PackageReference Include="AWSSDK.SQS" Version="3.7.400.70"/>
 
+        <PackageReference Include="MongoDB.Driver" Version="3.1.0"/>
+
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+
         <PackageReference Include="Grpc.AspNetCore" Version="2.67.0"/>
         <PackageReference Include="Grpc.Tools" Version="2.68.1">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
     <ItemGroup>

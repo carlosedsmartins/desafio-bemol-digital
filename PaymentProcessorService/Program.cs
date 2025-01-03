@@ -1,5 +1,6 @@
-using PaymentIntentService.Infrastructure.Configuration;
-using PaymentIntentService.Infrastructure.Middleware;
+using PaymentProcessorService.Infrastructure.Configuration;
+using PaymentProcessorService.Infrastructure.Middleware;
+using PaymentProcessorService.Presentation.GRPC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.MapGrpcService<PaymentServiceImpl>();
 
 if (app.Environment.IsDevelopment())
 {

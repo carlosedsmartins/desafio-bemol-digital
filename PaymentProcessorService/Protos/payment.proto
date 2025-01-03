@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package payment;
+
+service PaymentService {
+    rpc GetPaymentStatus (PaymentStatusRequest) returns (PaymentStatusResponse);
+}
+
+message PaymentStatusRequest {
+    string uuid = 1;
+}
+
+message PaymentStatusResponse {
+    string status = 1;
+    string message = 2;
+    string payerDocument = 3;
+    double amount = 4;
+    string description = 5;
+    string paymentMethod = 6;
+    string createdAt = 7;
+    string processedAt = 8;
+}
